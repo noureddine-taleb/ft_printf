@@ -7,22 +7,23 @@ LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
 
 AR := ar
-# TODO: this is not working on mac
-ARFLAGS := crT
+ARFLAGS := cr
 
 CFLAGS := -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
+	mv $(LIBFT) $@
+	$(AR) $(ARFLAGS) $@ $(OBJS)
 
 $(LIBFT): $(LIBFT_DIR)
 	$(MAKE) -C $(LIBFT_DIR)
 
 bonus: CFLAGS += -D_BONUS
 bonus: clean $(LIBFT) $(OBJS) $(BONUS_OBJS)
-	$(AR) $(ARFLAGS) $(NAME) $(filter-out clean,$^)
+	mv $(LIBFT) $(NAME)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJS) $(BONUS_OBJS)
 
 clean:
 	-rm $(OBJS) $(BONUS_OBJS)
