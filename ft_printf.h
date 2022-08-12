@@ -12,6 +12,11 @@ struct flags
 	int space;
 
 	int width;
+
+	int dot;
+	int precision;
+
+	char conversion;
 };
 
 void set_flag(struct flags *f, char flag);
@@ -20,6 +25,7 @@ int isflag(char c);
 int ft_print_padded_str(char *str, struct flags *flags, int _free);
 int ft_print_padded_mem(char *src, int len, struct flags *flags, int _free);
 void handle_flags(const char **fmt, struct flags *flags);
+char *ft_adjust_precision(char *number, int new_precision, struct flags *flags);
 
 int ft_print_percent(struct flags *flags);
 int ft_print_char(char c, struct flags *flags);

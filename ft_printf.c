@@ -4,7 +4,7 @@
 #include <string.h>
 #include "ft_printf.h"
 
-// flags-width-conversion
+// flags-width.conversion-conversion
 void handle_flags(const char **fmt, struct flags *flags) {
 
 	ft_bzero(flags, sizeof *flags);
@@ -26,6 +26,19 @@ void handle_flags(const char **fmt, struct flags *flags) {
 	while(ft_isdigit((**fmt))) {
 		(*fmt)++;
 	}
+
+	if (**fmt == '.') {
+		flags->dot = 1;
+		(*fmt)++;
+		if (ft_isdigit((**fmt))) {
+			flags->precision = ft_atoi(*fmt);
+		}
+		while (ft_isdigit((**fmt))) {
+			(*fmt)++;
+		}
+	}
+
+	flags->conversion = **fmt;
 #endif
 }
 

@@ -14,5 +14,11 @@ int ft_print_int(int i, struct flags *flags) {
 		new_str = ft_strjoin(sign, str);
 		free(str);
 	}
+
+	if (flags->dot) {
+		flags->zero = 0;
+		new_str = ft_adjust_precision(new_str, flags->precision, flags);
+	}
+
 	return ft_print_padded_str(new_str, flags, 1);
 }

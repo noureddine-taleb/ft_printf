@@ -7,6 +7,7 @@ int ft_print_ptr(void *p, struct flags *flags) {
 
 	if (!p) {
 		new_str = "(nil)";
+		flags->plus = flags->space = 0;
 	} else {
 		str = ft_utoa_base((unsigned long)p, "0123456789abcdef");
 		new_str = ft_strjoin("0x", str);
@@ -20,6 +21,11 @@ int ft_print_ptr(void *p, struct flags *flags) {
 			free(new_str);
 			new_str = str;
 		}
+	}
+
+	if (flags->dot) {
+		flags->zero = 0;
+		new_str = ft_adjust_precision(new_str, flags->precision, flags);
 	}
 
 	return ft_print_padded_str(new_str, flags, p != NULL);

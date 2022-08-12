@@ -51,6 +51,12 @@ int print_flags(struct flags *flags) {
 		ft_putstr_fd(w, 1), ret += ft_strlen(w), free(w);
 	}
 
+	if (flags->dot) {
+		char *w = ft_itoa(flags->precision);
+		ft_putchar_fd('.', 1);
+		ft_putstr_fd(w, 1), ret += ft_strlen(w) + 1, free(w);
+	}
+
 	return ret;
 }
 

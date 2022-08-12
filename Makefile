@@ -1,5 +1,5 @@
 NAME := libftprintf.a
-SRCS := ft_print_char.c ft_print_int.c ft_print_ptr.c ft_print_uint.c ft_printf.c ft_print_percent.c ft_print_str.c ft_print_uint_hex.c ft_print_padded_str.c
+SRCS := ft_print_char.c ft_print_int.c ft_print_ptr.c ft_print_uint.c ft_printf.c ft_print_percent.c ft_print_str.c ft_print_uint_hex.c ft_print_padded_str.c ft_adjust_precision.c
 OBJS := $(SRCS:.c=.o)
 BONUS_SRCS := ft_flags_bonus.c
 BONUS_OBJS := $(BONUS_SRCS:.c=.o)

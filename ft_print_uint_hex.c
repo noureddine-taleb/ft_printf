@@ -21,5 +21,10 @@ int ft_print_uint_hex(unsigned int i, int upper, struct flags *flags) {
 		free(str);
 	}
 
+	if (flags->dot) {
+		flags->zero = 0;
+		new_str = ft_adjust_precision(new_str, flags->precision, flags);
+	}
+
 	return ft_print_padded_str(new_str, flags, 1);
 }
