@@ -13,6 +13,9 @@ int ft_print_uint_hex(unsigned int i, int upper, struct flags *flags) {
 	char *str = ft_utoa_base(i, base);
 	new_str = str;
 	
+	if (!i)
+		flags->hash = 0;
+		
 	if (flags->hash) {
 		new_str = "0x";
 		if (upper)
