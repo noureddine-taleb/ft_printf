@@ -1,67 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flags_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/12 18:42:33 by ntaleb            #+#    #+#             */
+/*   Updated: 2022/08/12 20:18:53 by ntaleb           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "ft_printf.h"
 
-void set_flag(struct flags *f, char flag) {
-	switch (flag)
+void	set_flag(struct s_flags *f, char flag)
+{
+	if (flag == '-')
 	{
-	case '-':
 		f->zero = 0;
 		f->minus = 1;
-		break;
-	case '0':
+	}
+	else if (flag == '0')
+	{
 		if (!f->minus)
 			f->zero = 1;
-		break;
-	case '#':
+	}
+	else if (flag == '#')
+	{
 		f->hash = 1;
-		break;
-	case '+':
+	}
+	else if (flag == '+')
+	{
 		f->space = 0;
 		f->plus = 1;
-		break;
-	case ' ':
+	}
+	else if (flag == ' ')
+	{
 		if (!f->plus)
 			f->space = 1;
-		break;
 	}
 }
 
-int print_flags(struct flags *flags) {
-	int ret;
+int	print_width(struct s_flags *flags)
+{
+	char	*s;
+	int		retval;
 
-	ret = 0;
-	// #sp+-0
+	s = ft_itoa(flags->width);
+	ft_putstr_fd(s, 1);
+	retval = ft_strlen(s);
+	free(s);
+	return (retval);
+}
+
+int	print_dot(struct s_flags *flags)
+{
+	char	*s;
+	int		retval;
+
+	s = ft_itoa(flags->precision);
+	ft_putchar_fd('.', 1);
+	ft_putstr_fd(s, 1);
+	retval = ft_strlen(s) + 1;
+	free(s);
+	return (retval);
+}
+
+int	print_flags(struct s_flags *flags)
+{
+	int		ret;
+
 	if (flags->hash)
-		ft_putchar_fd('#', 1), ret++;
-		
+		ft_putchar_fd('#', 1);
 	if (flags->space)
-		ft_putchar_fd(' ', 1), ret++;
-
+		ft_putchar_fd(' ', 1);
 	if (flags->plus)
-		ft_putchar_fd('+', 1), ret++;
-
+		ft_putchar_fd('+', 1);
 	if (flags->minus)
-		ft_putchar_fd('-', 1), ret++;
-
+		ft_putchar_fd('-', 1);
 	if (flags->zero)
-		ft_putchar_fd('0', 1), ret++;
-
-	if (flags->width) {
-		char *w = ft_itoa(flags->width);
-		ft_putstr_fd(w, 1), ret += ft_strlen(w), free(w);
-	}
-
-	if (flags->dot) {
-		char *w = ft_itoa(flags->precision);
-		ft_putchar_fd('.', 1);
-		ft_putstr_fd(w, 1), ret += ft_strlen(w) + 1, free(w);
-	}
-
-	return ret;
+		ft_putchar_fd('0', 1);
+	ret = flags->hash + flags->space \
+			+ flags->plus + flags->zero + flags->minus;
+	if (flags->width)
+		ret += print_width(flags);
+	if (flags->dot)
+		ret += print_dot(flags);
+	return (ret);
 }
 
-int isflag(char c) {
-	return !!ft_strchr("#-0+ ", c);
+int	isflag(char c)
+{
+	return (!!ft_strchr("#-0+ ", c));
 }
-
-

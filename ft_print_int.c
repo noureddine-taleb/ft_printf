@@ -1,24 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_int.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/12 19:03:30 by ntaleb            #+#    #+#             */
+/*   Updated: 2022/08/12 20:47:56 by ntaleb           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_print_int(int i, struct flags *flags) {
-	flags->hash = 0;
-	char	*str = ft_itoa(i);
-	char 	*new_str = str;
-	char	sign[2] = {0, 0};
+int	ft_print_int(int i, struct s_flags *flags)
+{
+	char		*str;
+	char		*new_str;
 
-	if ((flags->space || flags->plus) && i >= 0) {
+	flags->hash = 0;
+	str = ft_itoa(i);
+	new_str = str;
+	if ((flags->space || flags->plus) && i >= 0)
+	{
 		if (flags->space)
-			sign[0] = ' ';
-		else if(flags->plus)
-			sign[0] = '+';
-		new_str = ft_strjoin(sign, str);
+			new_str = ft_strjoin(" ", str);
+		else if (flags->plus)
+			new_str = ft_strjoin("+", str);
 		free(str);
 	}
-
-	if (flags->dot) {
+	if (flags->dot)
+	{
 		flags->zero = 0;
 		new_str = ft_adjust_precision(new_str, flags->precision, flags);
 	}
-
-	return ft_print_padded_str(new_str, flags, 1);
+	return (ft_print_padded_str(new_str, flags, 1));
 }

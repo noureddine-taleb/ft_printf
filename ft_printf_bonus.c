@@ -1,20 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:58:23 by ntaleb            #+#    #+#             */
-/*   Updated: 2022/08/12 20:58:04 by ntaleb           ###   ########.fr       */
+/*   Updated: 2022/08/12 20:57:57 by ntaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
 #include "ft_printf.h"
+#include <stdarg.h>
+
+void	handle_flags(const char **fmt, struct s_flags *flags)
+{
+	ft_bzero(flags, sizeof(*flags));
+	while (isflag(**fmt))
+	{
+		set_flag(flags, **fmt);
+		(*fmt)++;
+	}
+	if (ft_isdigit((**fmt)))
+		flags->width = ft_atoi(*fmt);
+	while (ft_isdigit((**fmt)))
+		(*fmt)++;
+	if (**fmt == '.')
+	{
+		flags->dot = 1;
+		(*fmt)++;
+		if (ft_isdigit((**fmt)))
+			flags->precision = ft_atoi(*fmt);
+		while (ft_isdigit((**fmt)))
+			(*fmt)++;
+	}
+	flags->conversion = **fmt;
+}
 
 int	ft_do_printf(const char *fmt, va_list ap)
 {
@@ -28,6 +49,7 @@ int	ft_do_printf(const char *fmt, va_list ap)
 		if (*fmt == '%')
 		{
 			fmt++;
+			handle_flags(&fmt, &flags);
 			ret += handle_format(&fmt, ap, &flags);
 		}
 		else

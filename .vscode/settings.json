@@ -2,6 +2,20 @@
 	"files.associations": {
 		"libft.h": "c",
 		"ft_printf.h": "c",
-		"sstream": "c"
-	}
+		"sstream": "c",
+		"stdio.h": "c",
+		"*.tcc": "c",
+		"chrono": "c",
+		"fstream": "c",
+		"iomanip": "c",
+		"istream": "c",
+		"ostream": "c",
+		"ios": "c",
+		"iosfwd": "c",
+		"locale": "c",
+		"random": "c",
+		"*.rh": "c"
+	},
+	"42header.username": "ntaleb",
+	"42header.email": "ntaleb@student.1337.ma"
 }

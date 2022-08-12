@@ -1,33 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_uint_hex.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/12 19:49:13 by ntaleb            #+#    #+#             */
+/*   Updated: 2022/08/12 20:18:53 by ntaleb           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_print_uint_hex(unsigned int i, int upper, struct flags *flags) {
-	char *base;
-	char *new_str;
-
-	flags->space = flags->plus = 0;
+char	*utohex(unsigned int i, int upper, struct s_flags *flags)
+{
+	char	*base;
+	char	*str;
+	char	*tmp;
 
 	if (upper)
 		base = "0123456789ABCDEF";
 	else
 		base = "0123456789abcdef";
-	char *str = ft_utoa_base(i, base);
-	new_str = str;
-	
+	str = ft_utoa_base(i, base);
 	if (!i)
 		flags->hash = 0;
-		
-	if (flags->hash) {
-		new_str = "0x";
+	if (flags->hash)
+	{
+		tmp = str;
 		if (upper)
-			new_str = "0X";
-		new_str = ft_strjoin(new_str, str);
-		free(str);
+			str = ft_strjoin("0X", tmp);
+		else
+			str = ft_strjoin("0x", tmp);
+		free(tmp);
 	}
+	return (str);
+}
 
-	if (flags->dot) {
+int	ft_print_uint_hex(unsigned int i, int upper, struct s_flags *flags)
+{
+	char	*str;
+
+	flags->space = 0;
+	flags->plus = 0;
+	str = utohex(i, upper, flags);
+	if (flags->dot)
+	{
 		flags->zero = 0;
-		new_str = ft_adjust_precision(new_str, flags->precision, flags);
+		str = ft_adjust_precision(str, flags->precision, flags);
 	}
-
-	return ft_print_padded_str(new_str, flags, 1);
+	return (ft_print_padded_str(str, flags, 1));
 }
