@@ -1,11 +1,21 @@
-#include "libft/libft.h"
+#include "ft_printf.h"
 
-int ft_print_ptr(void *p) {
+int ft_print_ptr(void *p, struct flags *flags) {
+	flags->hash = 0;
 	char *str = ft_utoa_base((unsigned long)p, "0123456789abcdef");
-	int len = ft_strlen(str);
+	char *new_str;
 
-	ft_putstr_fd("0x", 1);
-	ft_putstr_fd(str, 1);
+	new_str = ft_strjoin("0x", str);
 	free(str);
-	return len + 2;
+	if (flags->space || flags->plus) {
+		if (flags->space) {
+			str = ft_strjoin(" ", new_str);
+		} else {
+			str = ft_strjoin("+", new_str);
+		}
+		free(new_str);
+		new_str = str;
+	}
+
+	return ft_print_padded_str(new_str, flags, 1);
 }

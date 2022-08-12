@@ -1,10 +1,8 @@
-#include "libft/libft.h"
+#include "ft_printf.h"
 
-int ft_print_uint(unsigned int i) {
+int ft_print_uint(unsigned int i, struct flags *flags) {
 	char *str = ft_utoa_base(i, "0123456789");
-	int len = ft_strlen(str);
+	flags->plus = flags->space = flags->hash = 0;
 
-	ft_putstr_fd(str, 1);
-	free(str);
-	return len;
+	return ft_print_padded_str(str, flags, 1);
 }
