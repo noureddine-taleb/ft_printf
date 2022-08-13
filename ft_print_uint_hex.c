@@ -6,7 +6,7 @@
 /*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:49:13 by ntaleb            #+#    #+#             */
-/*   Updated: 2022/08/12 20:18:53 by ntaleb           ###   ########.fr       */
+/*   Updated: 2022/08/13 01:02:58 by ntaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	ft_print_uint_hex(unsigned int i, int upper, struct s_flags *flags)
 	if (flags->dot)
 	{
 		flags->zero = 0;
-		str = ft_adjust_precision(str, flags->precision, flags);
+		if (check_precision(i, flags->precision, &str))
+			str = ft_adjust_precision(str, flags->precision, flags);
 	}
 	return (ft_print_padded_str(str, flags, 1));
 }

@@ -6,7 +6,7 @@
 /*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 20:15:15 by ntaleb            #+#    #+#             */
-/*   Updated: 2022/08/12 21:00:34 by ntaleb           ###   ########.fr       */
+/*   Updated: 2022/08/13 01:02:58 by ntaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*ft_adjust_precision(char *number, int new_precision,
 int		is_conversion(char c);
 int		invoke_conversion(char c, va_list ap, struct s_flags *flags);
 int		handle_format(const char **fmt, va_list ap, struct s_flags *flags);
+int		check_precision(unsigned int i, int precision, char **s);
 
 int		ft_print_percent(struct s_flags *flags);
 int		ft_print_char(char c, struct s_flags *flags);
