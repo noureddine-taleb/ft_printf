@@ -6,7 +6,7 @@
 /*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:31:05 by ntaleb            #+#    #+#             */
-/*   Updated: 2022/08/13 11:40:23 by ntaleb           ###   ########.fr       */
+/*   Updated: 2022/08/13 12:13:39 by ntaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ptoa(void *p, struct s_flags *flags)
 {
 	char	*str;
 	char	*tmp;
-	
+
 	if (!p)
 		str = ft_strdup("0x0");
 	else
