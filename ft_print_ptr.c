@@ -6,27 +6,19 @@
 /*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:31:05 by ntaleb            #+#    #+#             */
-/*   Updated: 2022/08/12 20:50:10 by ntaleb           ###   ########.fr       */
+/*   Updated: 2022/08/13 11:40:23 by ntaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_nil(struct s_flags *flags)
-{
-	flags->plus = 0;
-	flags->space = 0;
-	flags->dot = 0;
-	return ("(nil)");
-}
-
 char	*ptoa(void *p, struct s_flags *flags)
 {
 	char	*str;
 	char	*tmp;
-
+	
 	if (!p)
-		str = get_nil(flags);
+		str = ft_strdup("0x0");
 	else
 	{
 		tmp = ft_utoa_base((unsigned long)p, "0123456789abcdef");
@@ -56,5 +48,5 @@ int	ft_print_ptr(void *p, struct s_flags *flags)
 		flags->zero = 0;
 		str = ft_adjust_precision(str, flags->precision, flags);
 	}
-	return (ft_print_padded_str(str, flags, p != NULL));
+	return (ft_print_padded_str(str, flags, 1));
 }

@@ -6,7 +6,7 @@
 /*   By: ntaleb <ntaleb@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:47:52 by ntaleb            #+#    #+#             */
-/*   Updated: 2022/08/13 01:18:50 by ntaleb           ###   ########.fr       */
+/*   Updated: 2022/08/13 12:07:17 by ntaleb           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	ft_print_str(char *str, struct s_flags *flags)
 	{
 		str = "(null)";
 		if (flags->dot && flags->precision < 6)
-			str = "";
+		{
+			str = ft_substr(str, 0, flags->precision);
+			free = 1;
+		}
 	}
 	return (ft_print_padded_str(str, flags, free));
 }
